@@ -82,5 +82,9 @@ elif st.session_state.step == 3:
     else:
         df = pd.read_csv(SAVE_FILE)
 
-    new_row = {
-        "timestamp": da
+        new_row = {
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "first_choice": st.session_state.get("first_choice", ""),
+        "second_choice": st.session_state.get("second_choice", "")
+    }
+
