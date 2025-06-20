@@ -40,42 +40,33 @@ if st.session_state.step == 1:
         st.session_state.step = 2
 
 # STEP 2: 1차 결과 + 2차 메뉴 선택
-if st.session_state.step == 2:
-    if "first_choice" not in st.session_state:
-        st.warning("⚠️ 1차 메뉴 선택이 누락되었어요. 처음부터 다시 시도해주세요.")
-        st.session_state.step = 1
-    else:
-        with st.spinner("첫 메뉴 분석 중..."):
-            time.sleep(1)
+elif st.session_state.step == 2:
+    with st.spinner("첫 메뉴 분석 중..."):
+        time.sleep(1)
 
-        first_choice = st.session_state.first_choice
+    first_choice = st.session_state.first_choice
 
-        if first_choice == "튀긴 족발":
-            st.markdown("후후.. 계획대로..")
-        elif first_choice == "시금치 치킨":
-            st.markdown("전기통닭 구이라 계획은 실패네요._.")
-        elif first_choice == "둘 다":
-            st.markdown("예린이 납치계획 출범 !-!")
-        elif first_choice == "산책하다가 느낌 오는 곳":
-            st.markdown("산책 좋아._. 플리 준비할게욤")
+    if first_choice == "튀긴 족발":
+        st.markdown("후후.. 계획대로..")
+    elif first_choice == "시금치 치킨":
+        st.markdown("전기통닭 구이라 계획은 실패네요._.")
+    elif first_choice == "둘 다":
+        st.markdown("예린이 납치계획 출범 !-!")
+    elif first_choice == "산책하다가 느낌 오는 곳":
+        st.markdown("산책 좋아._. 플리 준비할게욤")
 
-        second_choice = st.radio("2차는 뭐가 좋을까?", ["방아전이랑 칼칼한 전골", "다양한 술 테이스팅~"])
+    st.session_state.second_choice = st.radio("2차는 뭐가 좋을까?", ["방아전이랑 칼칼한 전골", "다양한 술 테이스팅~"])
 
-        if st.button("이걸로 가자"):
-            st.session_state.second_choice = second_choice
-            st.session_state.step = 2.5
+    if st.button("이걸로 가자"):
+        st.session_state.step = 2.5
 
 # STEP 2.5: 좋아!-! 버튼 누르면 다음 단계로
-if st.session_state.step == 2.5:
-    if "second_choice" not in st.session_state:
-        st.warning("⚠️ 2차 메뉴 선택이 누락되었어요. 처음부터 다시 시도해주세요.")
-        st.session_state.step = 1
-    else:
-        if st.button("좋아!-!"):
-            st.session_state.step = 3
+elif st.session_state.step == 2.5:
+    if st.button("좋아!-!"):
+        st.session_state.step = 3
 
 # STEP 3: 결과 출력 + 저장
-if st.session_state.step == 3:
+elif st.session_state.step == 3:
     with st.spinner("2차까지 계산 중..."):
         time.sleep(1)
 
