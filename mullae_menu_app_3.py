@@ -35,7 +35,6 @@ if st.session_state.step == 1:
     if st.button("선택 완료"): 
         st.session_state.first_choice = choice
         st.session_state.step = 2
-        st.experimental_rerun()
 
 # STEP 2: 1차 선택 결과 + 2차 메뉴 선택
 if st.session_state.step == 2:
@@ -56,7 +55,6 @@ if st.session_state.step == 2:
     if st.button("이걸로 가자"):
         st.session_state.second_choice = second_choice
         st.session_state.step = 3
-        st.experimental_rerun()
 
 # STEP 3: 결과 출력 + 저장
 if st.session_state.step == 3:
