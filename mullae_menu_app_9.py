@@ -6,7 +6,7 @@ import os
 from PIL import Image, ImageDraw, ImageFont
 import io
 
-st.set_page_config(page_title="문래역 데이트 with 예린", page_icon="💌", layout="centered")
+st.set_page_config(page_title="문래역 데이트", page_icon="💌", layout="centered")
 
 SAVE_FILE = "mullae_choice_log.csv"
 FONT_PATH = "assets/나눔손글씨_손편지체.ttf"
