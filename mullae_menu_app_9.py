@@ -12,6 +12,8 @@ SAVE_FILE = "mullae_choice_log.csv"
 FONT_PATH = "assets/나눔손글씨_손편지체.ttf"
 IMAGE_PATH = "assets/default_poodle.jpg"
 
+st.title("문래역 데이트 메뉴 선택기")
+
 if "step" not in st.session_state:
     st.session_state.step = 0
 
@@ -26,7 +28,6 @@ if st.session_state.step == 0:
 
 # STEP 1: 1차 메뉴 선택
 elif st.session_state.step == 1:
-    st.title("문래역 데이트 메뉴 선택기")
     st.markdown(f"안녕하세요 소재욱입니다._.\n{st.session_state.name}씨 내일 어떤거 먹을까요!-!")
 
     with st.spinner(f"{st.session_state.name}씨 뭐 먹고 싶을지 고민 중..."):
