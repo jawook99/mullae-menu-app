@@ -79,6 +79,16 @@ elif st.session_state.step == 3:
     st.markdown("---")
     st.markdown(f"많이 보고싶어요 **{name}**씨 **내일 너무 너무 재밌게 놀자**")
 
+    # 이미지 둥글게 처리 함수
+    def crop_circle(img):
+        size = img.size
+        mask = Image.new('L', size, 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0, size[0], size[1]), fill=255)
+        result = Image.new('RGBA', size)
+        result.paste(img, (0, 0), mask=mask)
+        return result
+
     # 카드 이미지 생성
     try:
         font_hand_large = ImageFont.truetype(FONT_PATH, 36)
@@ -87,7 +97,8 @@ elif st.session_state.step == 3:
         st.warning("손글씨 폰트를 불러올 수 없어 기본 폰트로 대체했어요.")
 
     try:
-        default_img = Image.open(IMAGE_PATH).resize((180, 180))
+        default_img = Image.open(IMAGE_PATH).resize((240, 240))
+        default_img = crop_circle(default_img)
     except:
         st.error("기본 이미지를 불러올 수 없습니다.")
         st.stop()
@@ -98,14 +109,14 @@ elif st.session_state.step == 3:
     draw.text((40, 140), f"[1차] {first_choice}", fill="black", font=font_hand_large)
     draw.text((40, 210), f"[2차] {second_choice}", fill="black", font=font_hand_large)
     draw.text((40, 300), "기대된다 내일 데이트", fill="black", font=font_hand_large)
-    card.paste(default_img, (580, 390))
+    card.paste(default_img, (520, 340), default_img)  # 투명 배경 처리된 이미지 붙이기
 
     # 이미지 출력
     buf = io.BytesIO()
     card.save(buf, format="PNG")
     buf.seek(0)
 
-    st.image(buf.getvalue(), caption="예린이와의 감성 카드", use_column_width=True)
+    st.image(buf.getvalue(), caption="예린이와의 감성 카드", use_container_width=True)
     st.download_button("💾 카드 이미지 저장하기", data=buf.getvalue(), file_name="mullae_date_card.png", mime="image/png")
 
     # 결과 저장
