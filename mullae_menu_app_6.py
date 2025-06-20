@@ -58,14 +58,7 @@ elif st.session_state.step == 2:
 
     if st.button("이걸로 가자"):
         st.session_state["second_choice"] = second_choice
-        st.session_state.step = 2.5
-        st.rerun()
-
-# STEP 2.5: 좋아!-! 버튼 누르면 다음 단계로
-elif st.session_state.step == 2.5:
-    st.markdown("다 좋지 예린이랑이면._.")
-    if st.button("좋아!-!"):
-        st.session_state.step = 3
+        st.session_state.step = 3  # 바로 결과 단계로
         st.rerun()
 
 # STEP 3: 결과 출력 + 저장
@@ -90,12 +83,4 @@ elif st.session_state.step == 3:
         df = pd.read_csv(SAVE_FILE)
 
     new_row = {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "first_choice": st.session_state.get("first_choice", ""),
-        "second_choice": st.session_state.get("second_choice", "")
-    }
-
-    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-    df.to_csv(SAVE_FILE, index=False)
-
-    st.success("메-모._.")
+        "timestamp": da
