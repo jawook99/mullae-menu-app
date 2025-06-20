@@ -83,4 +83,25 @@ if st.session_state.step == 3:
 
     if second_choice == "방아전이랑 칼칼한 전골":
         st.markdown("방아전 그냥 산나물 느낌이래, 전골은 칼칼해서 예린 좋아할거 같아")
-    elif seco중._.")
+    elif second_choice == "다양한 술 테이스팅~":
+        st.markdown("분위기도 엄청 좋데, 돼지고기 뽈살 구이._.")
+
+    st.markdown("---")
+    st.markdown("많이 보고싶어요 예린씨 **내일 너무 너무 재밌게 놀자**")
+
+    # 결과 저장
+    if not os.path.exists(SAVE_FILE):
+        df = pd.DataFrame(columns=["timestamp", "first_choice", "second_choice"])
+    else:
+        df = pd.read_csv(SAVE_FILE)
+
+    new_row = {
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "first_choice": st.session_state.get("first_choice", ""),
+        "second_choice": st.session_state.get("second_choice", "")
+    }
+
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+    df.to_csv(SAVE_FILE, index=False)
+
+    st.success("메-모._.")
