@@ -17,11 +17,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("문래역 데이트 메뉴 선택기")
-
-st.markdown("안녕하세요 소재욱입니다._.")
-st.markdown("내일 어떤거 먹을까요!-!")
-
 SAVE_FILE = "mullae_choice_log.csv"
 
 # 세션 상태 초기화
@@ -30,6 +25,10 @@ if "step" not in st.session_state:
 
 # STEP 1: 1차 메뉴 선택
 if st.session_state.step == 1:
+    st.title("문래역 데이트 메뉴 선택기")
+    st.markdown("안녕하세요 소재욱입니다._.")
+    st.markdown("내일 어떤거 먹을까요!-!")
+
     with st.spinner("예린이 뭐 먹고 싶을지 고민 중..."):
         time.sleep(1)
 
@@ -38,6 +37,7 @@ if st.session_state.step == 1:
     if st.button("선택 완료"):
         st.session_state.first_choice = choice
         st.session_state.step = 2
+        st.experimental_rerun()
 
 # STEP 2: 1차 결과 + 2차 메뉴 선택
 elif st.session_state.step == 2:
@@ -55,15 +55,18 @@ elif st.session_state.step == 2:
     elif first_choice == "산책하다가 느낌 오는 곳":
         st.markdown("산책 좋아._. 플리 준비할게욤")
 
-    st.session_state.second_choice = st.radio("2차는 뭐가 좋을까?", ["방아전이랑 칼칼한 전골", "다양한 술 테이스팅~"])
+    second_choice = st.radio("2차는 뭐가 좋을까?", ["방아전이랑 칼칼한 전골", "다양한 술 테이스팅~"])
 
     if st.button("이걸로 가자"):
+        st.session_state.second_choice = second_choice
         st.session_state.step = 2.5
+        st.experimental_rerun()
 
 # STEP 2.5: 좋아!-! 버튼 누르면 다음 단계로
 elif st.session_state.step == 2.5:
     if st.button("좋아!-!"):
         st.session_state.step = 3
+        st.experimental_rerun()
 
 # STEP 3: 결과 출력 + 저장
 elif st.session_state.step == 3:
