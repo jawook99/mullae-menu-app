@@ -98,4 +98,4 @@ elif st.session_state.step == 3:
     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
     df.to_csv(SAVE_FILE, index=False)
 
-    st.success("메-모._.")
+    st.success("메-모 중._.")
