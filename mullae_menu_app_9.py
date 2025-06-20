@@ -12,7 +12,7 @@ SAVE_FILE = "mullae_choice_log.csv"
 FONT_PATH = "assets/나눔손글씨_손편지체.ttf"
 IMAGE_PATH = "assets/default_poodle.jpg"
 
-st.title("문래역 데이트 메뉴 선택기")
+st.title("문래역 데이트_오늘 뭐먹지?")
 
 if "step" not in st.session_state:
     st.session_state.step = 0
