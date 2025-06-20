@@ -3,13 +3,12 @@ import time
 import pandas as pd
 from datetime import datetime
 import os
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFont
 import io
 
 st.set_page_config(page_title="문래역 데이트 with 예린", page_icon="💌", layout="centered")
 
 SAVE_FILE = "mullae_choice_log.csv"
-DEFAULT_IMAGE_PATH = "/mnt/data/KakaoTalk_20250619_164018121.jpg"  # 기본 감성 이미지 (하얀 강아지)
 
 if "step" not in st.session_state:
     st.session_state.step = 0
@@ -78,16 +77,7 @@ elif st.session_state.step == 3:
     st.markdown("---")
     st.markdown(f"많이 보고싶어요 **{name}**씨 **내일 너무 너무 재밌게 놀자**")
 
-    # 🔄 사진 업로드 or 기본 이미지 사용
-    uploaded_image = st.file_uploader("사진을 올려줘 (선택)", type=["jpg", "jpeg", "png"])
-
-    try:
-        user_image = Image.open(uploaded_image).convert("RGB") if uploaded_image else Image.open(DEFAULT_IMAGE_PATH).convert("RGB")
-    except:
-        st.error("기본 이미지를 불러오는 데 실패했어요.")
-        st.stop()
-
-    # ✍️ 카드 생성
+    # ✍️ 카드 생성 (사진 없이)
     handwriting_font_path = "/mnt/data/나눔손글씨 손편지체.ttf"
     font_hand_large = ImageFont.truetype(handwriting_font_path, 36)
 
@@ -97,17 +87,6 @@ elif st.session_state.step == 3:
     draw.text((40, 140), f"[1차] {first_choice}", fill="black", font=font_hand_large)
     draw.text((40, 210), f"[2차] {second_choice}", fill="black", font=font_hand_large)
     draw.text((40, 300), "기대된다 내일 데이트", fill="black", font=font_hand_large)
-
-    resized_img = user_image.resize((180, 180))
-    mask = Image.new("L", (180, 180), 0)
-    ImageDraw.Draw(mask).ellipse([(0, 0), (180, 180)], fill=255)
-
-    circle_img = ImageOps.fit(resized_img, (180, 180))
-    circle_img.putalpha(mask)
-
-    border_img = Image.new("RGBA", (190, 190), (255, 255, 255, 0))
-    border_img.paste(circle_img, (5, 5), circle_img)
-    card.paste(border_img, (580, 390), border_img)
 
     # 💾 이미지 출력 및 다운로드
     buf = io.BytesIO()
